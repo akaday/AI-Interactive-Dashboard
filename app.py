@@ -42,7 +42,7 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
+    if request.method == 'POST']:
         email = request.form['email']
         password = request.form['password']
         if email not in users:
@@ -88,6 +88,7 @@ def predict():
 # Interactive visualizations using Plotly
 @app.route('/')
 def index():
+    print("Rendering index.html")
     df = pd.DataFrame({
         'x': [1, 2, 3, 4, 5],
         'y': [10, 11, 12, 13, 14]
@@ -101,4 +102,4 @@ def another():
     return render_template('another_page.html')
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    app.run(debug=True)
