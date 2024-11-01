@@ -4,13 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI-Powered Interactive Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 </head>
 <body>
     <h1>AI-Powered Interactive Dashboard</h1>
+    
+    <!-- User Preferences and Settings -->
+    <div>
+        <h2>User Preferences</h2>
+        <form id="preferences-form">
+            <label for="theme">Theme:</label>
+            <select id="theme" name="theme">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+            <button type="submit">Save Preferences</button>
+        </form>
+    </div>
+
+    <!-- User Login and Registration Forms -->
+    <div>
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <div>
+        <h2>Register</h2>
+        <form action="/register" method="POST">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <!-- Form for User Input to Predict Values -->
     <form action="/predict" method="POST">
         <label for="data">Enter a value:</label>
         <input type="text" id="data" name="data">
         <button type="submit">Predict</button>
     </form>
+
+    <!-- Interactive Visualizations using Plotly -->
+    <div id="plotly-chart"></div>
+    <script>
+        var graph = {{ graph | safe }};
+        Plotly.newPlot('plotly-chart', graph.data, graph.layout);
+    </script>
+
+    <!-- Real-time Data Updates using SocketIO -->
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        socket.on('message', function(data) {
+            console.log(data);
+        });
+    </script>
 </body>
 </html>
