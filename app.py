@@ -1,5 +1,5 @@
-from flask import Flask, render_template
-import plotly.express as px
+from flask import Flask, render_template # type: ignore
+import plotly.express as px # type: ignore
 
 app = Flask(__name__)
 
